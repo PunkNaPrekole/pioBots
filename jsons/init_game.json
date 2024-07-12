@@ -1,0 +1,607 @@
+{
+  "config": {
+    "Game_mechanics": {
+      "cargo_settings": [
+        {
+          "balls_loading": 0,
+          "balls_unloading": 12.5,
+          "color_led": [
+            255,
+            0,
+            0
+          ],
+          "str_name": "red"
+        },
+        {
+          "balls_loading": 0,
+          "balls_unloading": 12.5,
+          "color_led": [
+            0,
+            255,
+            0
+          ],
+          "str_name": "green"
+        },
+        {
+          "balls_loading": 0,
+          "balls_unloading": 12.5,
+          "color_led": [
+            0,
+            0,
+            255
+          ],
+          "str_name": "blue"
+        },
+        {
+          "balls_loading": 0,
+          "balls_unloading": 12.5,
+          "color_led": [
+            255,
+            255,
+            0
+          ],
+          "str_name": "yellow"
+        },
+        {
+          "balls_loading": 0,
+          "balls_unloading": 25,
+          "color_led": [
+            255,
+            120,
+            10
+          ],
+          "str_name": "orange"
+        }
+      ]
+    },
+    "Game_settings": {
+      "game_description": "testreal3",
+      "game_id": 4,
+      "time_game": 600.0
+    },
+    "Player_manager": [
+      {
+        "city_team": "Moscow",
+        "color_team": [
+          0,
+          51,
+          255
+        ],
+        "name_team": "pioBots",
+        "players": [
+          {
+            "description": "description not set",
+            "filter": [
+              "7",
+              "11",
+              "9",
+              "10",
+              "12",
+              "13"
+            ],
+            "home_object": "7",
+            "method_control_obj": "BotControl",
+            "name_player": "Player 1",
+            "robot": "1",
+            "role_player": {
+              "custom_settings": {},
+              "name_role": "GlobalRole"
+            }
+          },
+          {
+            "description": "description not set",
+            "filter": [
+              "6",
+              "11",
+              "9",
+              "10",
+              "12",
+              "13"
+            ],
+            "home_object": "6",
+            "method_control_obj": "BotControl",
+            "name_player": "Player 2",
+            "robot": "2",
+            "role_player": {
+              "custom_settings": {},
+              "name_role": "GlobalRole"
+            }
+          },
+          {
+            "description": "description not set",
+            "filter": [
+              "5",
+              "11",
+              "9",
+              "10",
+              "12",
+              "13"
+            ],
+            "home_object": "5",
+            "method_control_obj": "BotControl",
+            "name_player": "Player 3",
+            "robot": "3",
+            "role_player": {
+              "custom_settings": {},
+              "name_role": "GlobalRole"
+            }
+          },
+          {
+            "description": "description not set",
+            "filter": [
+              "4",
+              "11",
+              "9",
+              "10",
+              "12",
+              "13"
+            ],
+            "home_object": "4",
+            "method_control_obj": "BotControl",
+            "name_player": "Player 4",
+            "robot": "4",
+            "role_player": {
+              "custom_settings": {},
+              "name_role": "GlobalRole"
+            }
+          }
+        ]
+      },
+      {
+        "city_team": "SPB",
+        "color_team": [
+          255,
+          0,
+          0
+        ],
+        "name_team": "BetBoom",
+        "players": [
+          {
+            "description": "description not set",
+            "filter": [
+              "0",
+              "8",
+              "9",
+              "10",
+              "12",
+              "14"
+            ],
+            "home_object": "0",
+            "method_control_obj": "Manual_RC_ControlMethod",
+            "name_player": "Player 1",
+            "robot": "5",
+            "role_player": {
+              "custom_settings": {},
+              "name_role": "GlobalRole"
+            }
+          },
+          {
+            "description": "description not set",
+            "filter": [
+              "1",
+              "8",
+              "9",
+              "10",
+              "12",
+              "14"
+            ],
+            "home_object": "1",
+            "method_control_obj": "Manual_RC_ControlMethod",
+            "name_player": "Player 2",
+            "robot": "6",
+            "role_player": {
+              "custom_settings": {},
+              "name_role": "GlobalRole"
+            }
+          },
+          {
+            "description": "description not set",
+            "filter": [
+              "2",
+              "8",
+              "9",
+              "10",
+              "12",
+              "14"
+            ],
+            "home_object": "2",
+            "method_control_obj": "Manual_RC_ControlMethod",
+            "name_player": "Player 3",
+            "robot": "7",
+            "role_player": {
+              "custom_settings": {},
+              "name_role": "GlobalRole"
+            }
+          },
+          {
+            "description": "description not set",
+            "filter": [
+              "3",
+              "8",
+              "9",
+              "10",
+              "12",
+              "14"
+            ],
+            "home_object": "3",
+            "method_control_obj": "Manual_RC_ControlMethod",
+            "name_player": "Player 4",
+            "robot": "8",
+            "role_player": {
+              "custom_settings": {},
+              "name_role": "GlobalRole"
+            }
+          }
+        ]
+      }
+    ],
+    "Polygon_manager": {
+      "0": {
+        "custom_settings": {},
+        "ind_for_led_controller": null,
+        "position": [
+          -4.449,
+          4.455
+        ],
+        "role": "TakeoffArea_RolePolygon",
+        "vis_info": {
+          "color": [
+            0,
+            0,
+            0
+          ],
+          "description": "not specified"
+        }
+      },
+      "1": {
+        "custom_settings": {},
+        "ind_for_led_controller": null,
+        "position": [
+          -2.466,
+          4.504
+        ],
+        "role": "TakeoffArea_RolePolygon",
+        "vis_info": {
+          "color": [
+            0,
+            0,
+            0
+          ],
+          "description": "not specified"
+        }
+      },
+      "10": {
+        "custom_settings": {},
+        "ind_for_led_controller": 1,
+        "position": [
+          -0.001,
+          0.491
+        ],
+        "role": "Fabric_RolePolygon",
+        "vis_info": {
+          "color": [
+            0,
+            0,
+            0
+          ],
+          "description": "not specified"
+        }
+      },
+      "11": {
+        "custom_settings": {},
+        "ind_for_led_controller": null,
+        "position": [
+          -0.008,
+          -4.481
+        ],
+        "role": "Weapoint_RolePolygon",
+        "vis_info": {
+          "color": [
+            0,
+            0,
+            0
+          ],
+          "description": "not specified"
+        }
+      },
+      "12": {
+        "custom_settings": {},
+        "ind_for_led_controller": 2,
+        "position": [
+          3.466,
+          -0.49
+        ],
+        "role": "Fabric_RolePolygon",
+        "vis_info": {
+          "color": [
+            0,
+            0,
+            0
+          ],
+          "description": "not specified"
+        }
+      },
+      "13": {
+        "custom_settings": {},
+        "ind_for_led_controller": null,
+        "position": [
+          [
+            -5.47,
+            5.47
+          ],
+          [
+            -5.47,
+            3.474
+          ],
+          [
+            5.488,
+            3.433
+          ],
+          [
+            5.509,
+            5.429
+          ]
+        ],
+        "role": "AntiBlockZone_RolePolygon",
+        "vis_info": {
+          "color": [
+            0,
+            0,
+            0
+          ],
+          "description": "not specified"
+        }
+      },
+      "14": {
+        "custom_settings": {},
+        "ind_for_led_controller": null,
+        "position": [
+          [
+            -5.449,
+            -5.448
+          ],
+          [
+            -5.47,
+            -3.533
+          ],
+          [
+            5.529,
+            -3.492
+          ],
+          [
+            5.509,
+            -5.468
+          ]
+        ],
+        "role": "AntiBlockZone_RolePolygon",
+        "vis_info": {
+          "color": [
+            0,
+            0,
+            0
+          ],
+          "description": "not specified"
+        }
+      },
+      "2": {
+        "custom_settings": {},
+        "ind_for_led_controller": null,
+        "position": [
+          2.485,
+          4.449
+        ],
+        "role": "TakeoffArea_RolePolygon",
+        "vis_info": {
+          "color": [
+            0,
+            0,
+            0
+          ],
+          "description": "not specified"
+        }
+      },
+      "3": {
+        "custom_settings": {},
+        "ind_for_led_controller": null,
+        "position": [
+          4.509,
+          4.455
+        ],
+        "role": "TakeoffArea_RolePolygon",
+        "vis_info": {
+          "color": [
+            0,
+            0,
+            0
+          ],
+          "description": "not specified"
+        }
+      },
+      "4": {
+        "custom_settings": {},
+        "ind_for_led_controller": null,
+        "position": [
+          4.495,
+          -4.488
+        ],
+        "role": "TakeoffArea_RolePolygon",
+        "vis_info": {
+          "color": [
+            0,
+            0,
+            0
+          ],
+          "description": "not specified"
+        }
+      },
+      "5": {
+        "custom_settings": {},
+        "ind_for_led_controller": null,
+        "position": [
+          2.465,
+          -4.495
+        ],
+        "role": "TakeoffArea_RolePolygon",
+        "vis_info": {
+          "color": [
+            0,
+            0,
+            0
+          ],
+          "description": "not specified"
+        }
+      },
+      "6": {
+        "custom_settings": {},
+        "ind_for_led_controller": null,
+        "position": [
+          -2.452,
+          -4.454
+        ],
+        "role": "TakeoffArea_RolePolygon",
+        "vis_info": {
+          "color": [
+            0,
+            0,
+            0
+          ],
+          "description": "not specified"
+        }
+      },
+      "7": {
+        "custom_settings": {},
+        "ind_for_led_controller": null,
+        "position": [
+          -4.462,
+          -4.46
+        ],
+        "role": "TakeoffArea_RolePolygon",
+        "vis_info": {
+          "color": [
+            0,
+            0,
+            0
+          ],
+          "description": "not specified"
+        }
+      },
+      "8": {
+        "custom_settings": {},
+        "ind_for_led_controller": null,
+        "position": [
+          -0.049,
+          4.455
+        ],
+        "role": "Weapoint_RolePolygon",
+        "vis_info": {
+          "color": [
+            0,
+            0,
+            0
+          ],
+          "description": "not specified"
+        }
+      },
+      "9": {
+        "custom_settings": {},
+        "ind_for_led_controller": 0,
+        "position": [
+          -3.454,
+          -0.482
+        ],
+        "role": "Fabric_RolePolygon",
+        "vis_info": {
+          "color": [
+            0,
+            0,
+            0
+          ],
+          "description": "not specified"
+        }
+      }
+    },
+    "Robot_manager": {
+      "1": {
+        "control_obj": "PioneerObject",
+        "filter_position": {
+          "custom_settings": {},
+          "method_filter_pos": null
+        },
+        "ip": "10.10.33.14",
+        "port": 5656,
+        "title": "pioneer1"
+      },
+      "2": {
+        "control_obj": "PioneerObject",
+        "filter_position": {
+          "custom_settings": {},
+          "method_filter_pos": null
+        },
+        "ip": "10.10.33.62",
+        "port": 5656,
+        "title": "pioneer2"
+      },
+      "3": {
+        "control_obj": "PioneerObject",
+        "filter_position": {
+          "custom_settings": {},
+          "method_filter_pos": null
+        },
+        "ip": "10.10.33.48",
+        "port": 5656,
+        "title": "pioneer3"
+      },
+      "4": {
+        "control_obj": "PioneerObject",
+        "filter_position": {
+          "custom_settings": {},
+          "method_filter_pos": null
+        },
+        "ip": "10.10.33.63",
+        "port": 5656,
+        "title": "pioneer4"
+      },
+      "5": {
+        "control_obj": "EduBotObject",
+        "filter_position": {
+          "custom_settings": {},
+          "method_filter_pos": null
+        },
+        "ip": "10.10.33.36",
+        "port": 5656,
+        "title": "edubot1"
+      },
+      "6": {
+        "control_obj": "EduBotObject",
+        "filter_position": {
+          "custom_settings": {},
+          "method_filter_pos": null
+        },
+        "ip": "10.10.33.34",
+        "port": 5656,
+        "title": "edubot2"
+      },
+      "7": {
+        "control_obj": "EduBotObject",
+        "filter_position": {
+          "custom_settings": {},
+          "method_filter_pos": null
+        },
+        "ip": "10.10.33.35",
+        "port": 5656,
+        "title": "edubot3"
+      },
+      "8": {
+        "control_obj": "EduBotObject",
+        "filter_position": {
+          "custom_settings": {},
+          "method_filter_pos": null
+        },
+        "ip": "10.10.33.33",
+        "port": 5656,
+        "title": "edubot4"
+      }
+    },
+    "Spare_robots": []
+  }
+}

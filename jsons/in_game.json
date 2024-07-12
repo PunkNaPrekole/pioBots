@@ -1,0 +1,602 @@
+{
+  "players_info": [
+    {
+      "city_team": "Moscow",
+      "color_team": [
+        0,
+        51,
+        255
+      ],
+      "name_team": "pioBots",
+      "players": [
+        {
+          "altitude": 0.0,
+          "balls_command": 0,
+          "balls_user": 0,
+          "centre_info": "",
+          "centre_value": 9000,
+          "current_pos": [
+            0.2500484207113618,
+            4.533003052446987,
+            0.0,
+            -0.5189597701822082
+          ],
+          "data_object": {
+            "stateObject": 0
+          },
+          "data_role": {
+            "bonus_list": [],
+            "cargo_color": [
+              255,
+              0,
+              0
+            ],
+            "health": 100,
+            "is_cargo": true,
+            "is_shooting": false,
+            "num_bullet": 1,
+            "state": 0
+          },
+          "full_delay": 10000,
+          "id": 0,
+          "speed": 1500,
+          "time_game": ""
+        },
+        {
+          "altitude": 0.0,
+          "balls_command": 0,
+          "balls_user": 0,
+          "centre_info": "\u0417\u0410\u0411\u041b\u041e\u041a\u0418\u0420\u041e\u0412\u0410\u041d",
+          "centre_value": 1000,
+          "current_pos": [
+            -5.744765379336793,
+            -6.188040272542906,
+            0.0,
+            2.3239837928588516
+          ],
+          "data_object": {
+            "stateObject": 0
+          },
+          "data_role": {
+            "bonus_list": [],
+            "cargo_color": [
+              0,
+              0,
+              0
+            ],
+            "health": 0,
+            "is_cargo": false,
+            "is_shooting": false,
+            "num_bullet": 3,
+            "state": 5
+          },
+          "full_delay": 30000,
+          "id": 1,
+          "speed": 1500,
+          "time_game": ""
+        },
+        {
+          "altitude": 0.0,
+          "balls_command": 0,
+          "balls_user": 0,
+          "centre_info": "\u0417\u0410\u0411\u041b\u041e\u041a\u0418\u0420\u041e\u0412\u0410\u041d",
+          "centre_value": 32000,
+          "current_pos": [
+            -6.263303997059186,
+            -6.160171021219838,
+            0.0,
+            2.844375733070593
+          ],
+          "data_object": {
+            "stateObject": 0
+          },
+          "data_role": {
+            "bonus_list": [],
+            "cargo_color": [
+              0,
+              0,
+              0
+            ],
+            "health": 0,
+            "is_cargo": false,
+            "is_shooting": false,
+            "num_bullet": 1,
+            "state": 0
+          },
+          "full_delay": 30000,
+          "id": 2,
+          "speed": 1500,
+          "time_game": ""
+        },
+        {
+          "altitude": 0.0,
+          "balls_command": 0,
+          "balls_user": 0,
+          "centre_info": "\u0417\u0410\u0411\u041b\u041e\u041a\u0418\u0420\u041e\u0412\u0410\u041d",
+          "centre_value": 1000,
+          "current_pos": [
+            -5.6547077375336015,
+            -5.894775925169957,
+            0.0,
+            2.252787611073566
+          ],
+          "data_object": {
+            "stateObject": 0
+          },
+          "data_role": {
+            "bonus_list": [],
+            "cargo_color": [
+              0,
+              0,
+              0
+            ],
+            "health": 0,
+            "is_cargo": false,
+            "is_shooting": false,
+            "num_bullet": 0,
+            "state": 0
+          },
+          "full_delay": 30000,
+          "id": 3,
+          "speed": 1500,
+          "time_game": ""
+        }
+      ],
+      "score_team": 0
+    },
+    {
+      "city_team": "SPB",
+      "color_team": [
+        255,
+        0,
+        0
+      ],
+      "name_team": "BetBoom",
+      "players": [
+        {
+          "altitude": 0.0,
+          "balls_command": 0,
+          "balls_user": 0,
+          "centre_info": "\u0417\u0410\u0411\u041b\u041e\u041a\u0418\u0420\u041e\u0412\u0410\u041d",
+          "centre_value": 49000,
+          "current_pos": [
+            4.672546873748623,
+            3.48340107940577,
+            0.0,
+            3.7131572427777044
+          ],
+          "data_object": {
+            "stateObject": 0
+          },
+          "data_role": {
+            "bonus_list": [],
+            "cargo_color": [
+              0,
+              0,
+              0
+            ],
+            "health": 0,
+            "is_cargo": false,
+            "is_shooting": false,
+            "num_bullet": 1,
+            "state": 0
+          },
+          "full_delay": 30000,
+          "id": 4,
+          "speed": 1500,
+          "time_game": ""
+        },
+        {
+          "altitude": 0.0,
+          "balls_command": 0,
+          "balls_user": 0,
+          "centre_info": "\u0417\u0410\u0411\u041b\u041e\u041a\u0418\u0420\u041e\u0412\u0410\u041d",
+          "centre_value": 1000,
+          "current_pos": [
+            -5.938834569269295,
+            -5.647269745813087,
+            0.0,
+            2.063850565358462
+          ],
+          "data_object": {
+            "stateObject": 0
+          },
+          "data_role": {
+            "bonus_list": [],
+            "cargo_color": [
+              0,
+              0,
+              0
+            ],
+            "health": 0,
+            "is_cargo": false,
+            "is_shooting": false,
+            "num_bullet": 0,
+            "state": 0
+          },
+          "full_delay": 30000,
+          "id": 5,
+          "speed": 1500,
+          "time_game": ""
+        },
+        {
+          "altitude": 0.0,
+          "balls_command": 0,
+          "balls_user": 0,
+          "centre_info": "\u0417\u0410\u0411\u041b\u041e\u041a\u0418\u0420\u041e\u0412\u0410\u041d",
+          "centre_value": 1000,
+          "current_pos": [
+            -6.246043754135179,
+            -5.912663969495774,
+            0.0,
+            2.903205006481249
+          ],
+          "data_object": {
+            "stateObject": 0
+          },
+          "data_role": {
+            "bonus_list": [],
+            "cargo_color": [
+              0,
+              0,
+              0
+            ],
+            "health": 0,
+            "is_cargo": false,
+            "is_shooting": false,
+            "num_bullet": 0,
+            "state": 0
+          },
+          "full_delay": 30000,
+          "id": 6,
+          "speed": 1500,
+          "time_game": ""
+        },
+        {
+          "altitude": 0.0,
+          "balls_command": 0,
+          "balls_user": 0,
+          "centre_info": "\u0417\u0410\u0411\u041b\u041e\u041a\u0418\u0420\u041e\u0412\u0410\u041d",
+          "centre_value": 32000,
+          "current_pos": [
+            -6.268050551691473,
+            -6.658978952310005,
+            0.0,
+            2.5760534793609136
+          ],
+          "data_object": {
+            "stateObject": 0
+          },
+          "data_role": {
+            "bonus_list": [],
+            "cargo_color": [
+              0,
+              0,
+              0
+            ],
+            "health": 0,
+            "is_cargo": false,
+            "is_shooting": false,
+            "num_bullet": 1,
+            "state": 0
+          },
+          "full_delay": 30000,
+          "id": 7,
+          "speed": 1500,
+          "time_game": ""
+        }
+      ],
+      "score_team": 0
+    }
+  ],
+  "polygon_info": {
+    "0": {
+      "current_pos": [
+        -4.449,
+        4.455
+      ],
+      "data_role": {},
+      "name_role": "TakeoffArea_RolePolygon",
+      "vis_info": {
+        "color": [
+          0,
+          0,
+          0
+        ],
+        "description": "not specified"
+      }
+    },
+    "1": {
+      "current_pos": [
+        -2.466,
+        4.504
+      ],
+      "data_role": {},
+      "name_role": "TakeoffArea_RolePolygon",
+      "vis_info": {
+        "color": [
+          0,
+          0,
+          0
+        ],
+        "description": "not specified"
+      }
+    },
+    "10": {
+      "current_pos": [
+        -0.001,
+        0.491
+      ],
+      "data_role": {
+        "current_cargo_color": [
+          [
+            255,
+            0,
+            0
+          ]
+        ],
+        "current_conditions": 1,
+        "is_cargo": true,
+        "num_cargo": 1
+      },
+      "name_role": "Fabric_RolePolygon",
+      "vis_info": {
+        "color": [
+          0,
+          0,
+          0
+        ],
+        "description": "not specified"
+      }
+    },
+    "11": {
+      "current_pos": [
+        -0.008,
+        -4.481
+      ],
+      "data_role": {},
+      "name_role": "Weapoint_RolePolygon",
+      "vis_info": {
+        "color": [
+          0,
+          0,
+          0
+        ],
+        "description": "not specified"
+      }
+    },
+    "12": {
+      "current_pos": [
+        3.466,
+        -0.49
+      ],
+      "data_role": {
+        "current_cargo_color": [
+          [
+            0,
+            255,
+            0
+          ]
+        ],
+        "current_conditions": 1,
+        "is_cargo": true,
+        "num_cargo": 1
+      },
+      "name_role": "Fabric_RolePolygon",
+      "vis_info": {
+        "color": [
+          0,
+          0,
+          0
+        ],
+        "description": "not specified"
+      }
+    },
+    "13": {
+      "current_pos": [
+        [
+          -5.47,
+          5.47
+        ],
+        [
+          -5.47,
+          3.474
+        ],
+        [
+          5.488,
+          3.433
+        ],
+        [
+          5.509,
+          5.429
+        ]
+      ],
+      "data_role": null,
+      "name_role": "AntiBlockZone_RolePolygon",
+      "vis_info": {
+        "color": [
+          0,
+          0,
+          0
+        ],
+        "description": "not specified"
+      }
+    },
+    "14": {
+      "current_pos": [
+        [
+          -5.449,
+          -5.448
+        ],
+        [
+          -5.47,
+          -3.533
+        ],
+        [
+          5.529,
+          -3.492
+        ],
+        [
+          5.509,
+          -5.468
+        ]
+      ],
+      "data_role": null,
+      "name_role": "AntiBlockZone_RolePolygon",
+      "vis_info": {
+        "color": [
+          0,
+          0,
+          0
+        ],
+        "description": "not specified"
+      }
+    },
+    "2": {
+      "current_pos": [
+        2.485,
+        4.449
+      ],
+      "data_role": {},
+      "name_role": "TakeoffArea_RolePolygon",
+      "vis_info": {
+        "color": [
+          0,
+          0,
+          0
+        ],
+        "description": "not specified"
+      }
+    },
+    "3": {
+      "current_pos": [
+        4.509,
+        4.455
+      ],
+      "data_role": {},
+      "name_role": "TakeoffArea_RolePolygon",
+      "vis_info": {
+        "color": [
+          0,
+          0,
+          0
+        ],
+        "description": "not specified"
+      }
+    },
+    "4": {
+      "current_pos": [
+        4.495,
+        -4.488
+      ],
+      "data_role": {},
+      "name_role": "TakeoffArea_RolePolygon",
+      "vis_info": {
+        "color": [
+          0,
+          0,
+          0
+        ],
+        "description": "not specified"
+      }
+    },
+    "5": {
+      "current_pos": [
+        2.465,
+        -4.495
+      ],
+      "data_role": {},
+      "name_role": "TakeoffArea_RolePolygon",
+      "vis_info": {
+        "color": [
+          0,
+          0,
+          0
+        ],
+        "description": "not specified"
+      }
+    },
+    "6": {
+      "current_pos": [
+        -2.452,
+        -4.454
+      ],
+      "data_role": {},
+      "name_role": "TakeoffArea_RolePolygon",
+      "vis_info": {
+        "color": [
+          0,
+          0,
+          0
+        ],
+        "description": "not specified"
+      }
+    },
+    "7": {
+      "current_pos": [
+        -4.462,
+        -4.46
+      ],
+      "data_role": {},
+      "name_role": "TakeoffArea_RolePolygon",
+      "vis_info": {
+        "color": [
+          0,
+          0,
+          0
+        ],
+        "description": "not specified"
+      }
+    },
+    "8": {
+      "current_pos": [
+        -0.049,
+        4.455
+      ],
+      "data_role": {},
+      "name_role": "Weapoint_RolePolygon",
+      "vis_info": {
+        "color": [
+          0,
+          0,
+          0
+        ],
+        "description": "not specified"
+      }
+    },
+    "9": {
+      "current_pos": [
+        -3.454,
+        -0.482
+      ],
+      "data_role": {
+        "current_cargo_color": [
+          [
+            0,
+            0,
+            255
+          ]
+        ],
+        "current_conditions": 1,
+        "is_cargo": true,
+        "num_cargo": 1
+      },
+      "name_role": "Fabric_RolePolygon",
+      "vis_info": {
+        "color": [
+          0,
+          0,
+          0
+        ],
+        "description": "not specified"
+      }
+    }
+  },
+  "server_info": {
+    "gameTime": "08:56",
+    "game_description": "testreal3",
+    "state": 15,
+    "state_old": 3,
+    "version": "1.1.0"
+  }
+}
