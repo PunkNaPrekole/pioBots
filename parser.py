@@ -1,9 +1,6 @@
 import json
 import typing
-from arena_objects import dataclass
-from arena_objects.polygon import Polygon
-from arena_objects.pioneer import Pioneer
-from arena_objects.cargo import Cargo
+from gameObjects import *
 
 
 @dataclass
@@ -18,38 +15,68 @@ class Parser:
 
     def read_in(self, file_name):
         with open(file_name) as file:
-            j=json.load(file)
+            j = json.load(file)
         self.file_in = j
 
-    def get_polygons(self, file):
-        polygons = []
-        for i in file['polygon_info']:
-            polygons.append(Polygon(id=i,
-                                    role=file['polygon_info'][i]['name_role'],
-                                    position=file['polygon_info'][i]['current_pos'],
-                                    is_cargo=file['polygon_info'][i]['data_role']['is_cargo']
-                                    if file['polygon_info'][i]['data_role'] else False,
-                                    cargo=Cargo(color_led=file['polygon_info'][i]['data_role']['current_cargo_color'])
-                                    if file['polygon_info'][i]['data_role'] else [0, 0, 0]))
-
+    def get_polygons(self):
+        polygons = [Polygon(
+            id=k,
+            role=v["role"],
+            custom_settings=v['custom_settings'],
+            position=v["position"],
+            vis_info=VisInfo(
+                            color=v['vis_info']['color'],
+                            description=v['vis_info']['description']
+            )) for k, v in self.file_init['config']['Polygon_manager'].items()]
         return polygons
 
-    def get_pioneers(self, file):
-        pioneers = []
-        for team in file['players_info']:
-            for player in team['players']:
-                pioneers.append(Pioneer(id=player['id'],
-                                        position=player['current_pos'],
-                                        is_cargo=player['data_role']['is_cargo'],
-                                        is_shooting=player['data_role']['is_shooting'],
-                                        cargo=Cargo(color_led=player['data_role']['cargo_color'])))
-        return pioneers
+    def get_teams(self):
+        teams = [Team(
+            name=team['name_team'],
+            color=team['color_team'],
+            city=team['city_team'],
+            players=[Pioneer(
+                filter=p['filter'],
+                home_object=p['home_object'],
+                id=int(p['robot'])-1
+            ) for p in team['players']],
+            score=0
+        )for team in self.file_init['config']['Player_manager']]
+        return teams
 
+    def parse_teams(self):
+        teams = [Team(
+            name=team['name_team'],
+            color=team['color_team'],
+            city=team['city_team'],
+            players=[Pioneer(
+                position=p['current_pos'],
+                bonus_list=p['data_role']['bonus_list'],
+                id=p['id'],
+                health=['data_role']['health'],
+                is_cargo=['data_role']['is_cargo'],
+                is_shooting=['data_role']['is_shooting'],
+                num_bullets=['data_role']['num_bullet']
+            ) for p in team['players']],
+            score=0
+        ) for team in self.file_in['players_info']]
+        return teams
 
-if __name__ == "__main__":
-    parser = Parser()
-    parser.read_in('in_game.json')
-    parser.read_init('init_game.json')
-    print(parser.get_polygons(parser.file_in)[2])
-    print(parser.get_pioneers(parser.file_in)[1])
+    def parse_polygons(self):
+        polygons = [Polygon(
+            id=k,
+            role=v["role"],
+            custom_settings=v['custom_settings'],
+            position=v["position"],
+            vis_info=VisInfo(
+                color=v['vis_info']['color'],
+                description=v['vis_info']['description']
+            )) for k, v in self.file_init['config']['Polygon_manager'].items()]
+        return polygons
 
+    def update_game_state(self, teams, polygons):
+        for team in teams:
+            team.update_players(self.parse_teams())
+        for polygon in polygons:
+            polygon.update(self.parse_polygons())
+        pass

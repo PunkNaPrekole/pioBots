@@ -150,11 +150,21 @@ def attack(pioneers, enemy_pioneers):
 
 
 def main():
+    parser = Parser()
 
-    drones = Parser.get_pioneers()
+    parser.read_in('./jsons/in_game.json')
+    parser.read_init('./jsons/init_game.json')
+
+    polygons = parser.get_polygons(parser.file_in)
+    drones = parser.get_pioneers(parser.file_in)
+
+    fabrics = [point for point in polygons if point.role == "Fabric_RolePolygon"]
+    landing_points = [point for point in polygons if point.role == "TakeoffArea_RolePolygon"]
+    antiBlockZones = [point for point in polygons if point.role == "AntiBlockZone_RolePolygon"]
+    recharge_zones = [point for point in polygons if point.role == "Weapoint_RolePolygon"]
+
     pioneers = [pioneer for pioneer in drones if pioneer.team == 1]
     enemy_pioneers = [pioneer for pioneer in pioneers if pioneer.team != 1]
-    polygons = Parser.get_polygons()
     factories = [polygon for polygon in polygons if polygon.role == "Fabric_RolePolygon"]
     while True:
         for pioneer in pioneers:
