@@ -1,6 +1,8 @@
 from dataclasses import dataclass, field
 from typing import List, Dict, Optional
 
+import numpy as np
+
 
 @dataclass
 class CargoSettings:
@@ -43,6 +45,7 @@ class VisInfo:
 
 @dataclass
 class Polygon:
+    id: int
     custom_settings: Dict
     ind_for_led_controller: Optional[int]
     position: List
@@ -102,6 +105,7 @@ class TeamInfo:
 
 @dataclass
 class PolygonInfo:
+    id: int
     current_pos: List
     data_role: Optional[Dict]
     name_role: str
@@ -122,3 +126,16 @@ class InGameData:
     players_info: List[TeamInfo]
     polygon_manager: List[PolygonInfo]
     server_info: ServerInfo
+
+
+@dataclass()
+class Pioneer:
+    id: int
+    position: np.ndarray
+    home_point_id: int
+    num_bullets: int
+    end_position: np.ndarray
+    state: str
+    has_cargo: bool
+    velocity: np.ndarray
+

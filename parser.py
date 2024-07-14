@@ -3,6 +3,11 @@ from gameObjects import *
 
 
 def load_init_game_data(filepath: str) -> InitGameData:
+    """
+    function for parsing init_game.json
+    :param filepath: path to init_game.json file
+    :return: InitGameData object
+    """
     with open(filepath, 'r') as file:
         data = json.load(file)
 
@@ -39,12 +44,13 @@ def load_init_game_data(filepath: str) -> InitGameData:
         ))
 
     polygon_manager = [Polygon(
+        id=int(k),
         custom_settings=v.get('custom_settings', {}),
         ind_for_led_controller=v.get('ind_for_led_controller'),
         position=v.get('position', []),
         role=v['role'],
         vis_info=VisInfo(**v['vis_info'])
-    ) for v in config_data['Polygon_manager'].values()]
+    ) for k, v in config_data['Polygon_manager'].items()]
 
     robot_manager = {k: Robot(**v) for k, v in config_data['Robot_manager'].items()}
 
@@ -58,6 +64,11 @@ def load_init_game_data(filepath: str) -> InitGameData:
 
 
 def load_in_game_data(filepath: str) -> InGameData:
+    """
+    function for parsing in_game.json
+    :param filepath: path to in_game.json file
+    :return: InGameData object
+    """
     with open(filepath, 'r') as file:
         data = json.load(file)
 
@@ -74,11 +85,12 @@ def load_in_game_data(filepath: str) -> InGameData:
     polygon_manager = []
     if 'polygon_manager' in data:
         polygon_manager = [PolygonInfo(
+            id=int(k),
             current_pos=v['current_pos'],
             data_role=v.get('data_role'),
             name_role=v['name_role'],
             vis_info=VisInfo(**v['vis_info'])
-        ) for v in data['polygon_manager'].values()]
+        ) for k, v in data['polygon_manager'].items()]
 
     server_info = ServerInfo(**data['server_info'])
 
@@ -87,7 +99,3 @@ def load_in_game_data(filepath: str) -> InGameData:
         polygon_manager=polygon_manager,
         server_info=server_info
     )
-
-
-init_game_data = load_init_game_data('../jsons/init_game.json')
-in_game_data = load_in_game_data('../jsons/in_game.json')
