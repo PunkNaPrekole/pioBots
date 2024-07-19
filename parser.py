@@ -83,14 +83,14 @@ def load_in_game_data(filepath: str) -> InGameData:
         ))
 
     polygon_manager = []
-    if 'polygon_manager' in data:
+    if 'polygon_info' in data:
         polygon_manager = [PolygonInfo(
             id=int(k),
             current_pos=v['current_pos'],
             data_role=v.get('data_role'),
             name_role=v['name_role'],
             vis_info=VisInfo(**v['vis_info'])
-        ) for k, v in data['polygon_manager'].items()]
+        ) for k, v in data['polygon_info'].items()]
 
     server_info = ServerInfo(**data['server_info'])
 

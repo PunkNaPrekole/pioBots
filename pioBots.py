@@ -179,8 +179,13 @@ def main():
     init_data = parser.load_init_game_data('jsons/init_game.json')
 
     teams = init_data.player_manager
-    polygons = init_data.polygon_manager
-    home_points = [polygon for polygon in polygons if polygon.role == "TakeoffArea_RolePolygon"]
+    polygons = polygons = [parser.PolygonInfo(id=polygon.id,
+                                              current_pos=polygon.position,
+                                              name_role=polygon.role,
+                                              vis_info=polygon.vis_info,
+                                              data_role=None
+                                              ) for polygon in init_data.polygon_manager]
+    home_points = [polygon for polygon in polygons if polygon.name_role == "TakeoffArea_RolePolygon"]
 
     bots = []
     players = []
@@ -190,7 +195,7 @@ def main():
                 bots.append(parser.Pioneer(
                     id=int(player.robot),
                     position=np.array(
-                        next((home.position for home in home_points if home.id == int(player.home_object)), None)),
+                        next((home.current_pos for home in home_points if home.id == int(player.home_object)), None)),
                     home_point_id=int(player.home_object),
                     num_bullets=0,
                     end_position=None,  # FIXME надо тоже подумать мб

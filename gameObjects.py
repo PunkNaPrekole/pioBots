@@ -1,4 +1,4 @@
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import List, Dict, Optional
 
 import numpy as np
@@ -138,4 +138,3 @@ class Pioneer:
     state: str
     has_cargo: bool
     velocity: np.ndarray
-
