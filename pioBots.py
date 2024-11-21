@@ -33,6 +33,7 @@ class BotsController:
         self.ab_zones = [polygon for polygon in polygons if polygon.role == "AntiBlockZone_RolePolygon"]
         self.game_state = None
         self.min_distance = 0.3
+        self.min_attack_dist = 0.5
 
     def update_game_state(self):
         self.game_state = parser.load_in_game_data("jsons/in_game.json")
@@ -53,14 +54,14 @@ class BotsController:
                 choice -= 2
                 if distance < 1.0:
                     best_fabric = fabric
-                    bot.state = "waiting_for_enemy"
+                    bot.state = "waiting_for_enemy" # TODO
                     break
             if choice > best_choice:
                 best_choice = choice
                 best_fabric = fabric
         bot.end_position = best_fabric.position
 
-    def avoid_collision(self, bot):
+    def avoid_collision(self, bot): # TODO надо ли?
         all_drones = self.bots + self.players
         for other_drone in all_drones:
             if bot.id != other_drone.id:
@@ -86,31 +87,29 @@ class BotsController:
         return any(is_bot_in_zone(zone) for zone in self.ab_zones)
 
     def attack(self, bot):
-        if not bot.has_cargo and not self.is_bot_in_zones(bot):
+        if not bot.has_cargo and self.is_bot_in_zones(bot):
             nearest_enemy = None
-            nearest_enemy_dist = float("inf")
             for enemy in self.players:
                 if enemy.has_cargo:
                     distance = np.linalg.norm(enemy.position - bot.position)
-                    if distance < nearest_enemy_dist:
-                        nearest_enemy_dist = distance
+                    if distance <= self.min_attack_dist:
                         nearest_enemy = enemy
             bot.enemy = nearest_enemy
 
     def update_position(self, bot):
         if bot.state != "blocked":
-            self.avoid_collision(bot)
-            self.attack(bot)
+            self.avoid_collision(bot) # FIXME
+            self.attack(bot) # TODO
             if bot.state == 'taking_off':
                 bot.state = 'flying_to_factory' if not bot.has_cargo else 'returning_home'
 
             elif bot.state == 'flying_to_factory':
                 if bot.end_position is not None:
-                    direction = bot.end_position - bot.position
+                    direction = bot.end_position - bot.position # TODO 1
                     direction[2] = 0
                     distance = np.linalg.norm(direction)
                     if distance > 0.3:
-                        bot.velocity = (direction / distance) / 3
+                        bot.velocity = (direction / distance) / 3  # FIXME
                     else:
                         bot.velocity = np.array([0.0, 0.0, 0.0])
                         bot.state = 'landing'
@@ -118,8 +117,7 @@ class BotsController:
                     self.choose_factory(bot)
 
             elif bot.state == 'landing':
-                if np.linalg.norm(
-                        bot.position - bot.home_position) < 0.3:  # FIXME подумать на счет landing, успеет ли
+                if np.linalg.norm(bot.position - bot.home_position) < 0.3:
                     bot.state = 'landed_home'
                 else:
                     bot.state = 'landed_factory'
@@ -127,10 +125,10 @@ class BotsController:
             elif bot.state == 'landed_factory':
                 if bot.has_cargo:
                     bot.state = 'taking_off'
-                    bot.end_position = bot.home_position
+                    bot.end_position = bot.home_position # FIXME maybe select nearest TakeoffArea_RolePolygon
 
             elif bot.state == 'returning_home':
-                direction = bot.end_position - bot.position
+                direction = bot.end_position - bot.position # TODO 2
                 direction[2] = 0
                 distance = np.linalg.norm(direction)
                 if distance > 0.3:
@@ -160,6 +158,7 @@ class BotsController:
         if bot.state in ['flying_to_factory', 'returning_home']:
             packet['axis_0'] = int(1500 + bot.velocity[0] * 500)
             packet['axis_1'] = int(1500 + bot.velocity[1] * 500)
+            packet['axis_2'] = int(1500 + bot.velocity[2] * 500)
 
         if bot.state == 'landed_factory':
             packet['cargo_btn'] = 1
@@ -168,7 +167,7 @@ class BotsController:
         elif bot.state == 'taking_off':
             packet['takeoff'] = 1
 
-        if bot.enemy and np.linalg.norm(bot.enemy.position - bot.position) < 1.0:  # FIXME вот тут тоже жоска подумать
+        if bot.enemy:  # FIXME
             packet['fire_btn'] = 1
             bot.enemy = None
 
@@ -179,36 +178,46 @@ def main():
     init_data = parser.load_init_game_data('jsons/init_game.json')
 
     teams = init_data.player_manager
-    polygons = polygons = [parser.PolygonInfo(id=polygon.id,
-                                              current_pos=polygon.position,
-                                              name_role=polygon.role,
-                                              vis_info=polygon.vis_info,
-                                              data_role=None
-                                              ) for polygon in init_data.polygon_manager]
+    polygons = [parser.PolygonInfo(id=polygon.id,
+                                   current_pos=polygon.position,
+                                   name_role=polygon.role,
+                                   vis_info=polygon.vis_info,
+                                   data_role=None
+                                   ) for polygon in init_data.polygon_manager]
     home_points = [polygon for polygon in polygons if polygon.name_role == "TakeoffArea_RolePolygon"]
 
     bots = []
     players = []
     for team in teams:
-        for player in team.players:
-            if player.method_control_obj == "BotControl":
-                bots.append(parser.Pioneer(
-                    id=int(player.robot),
-                    position=np.array(
-                        next((home.current_pos for home in home_points if home.id == int(player.home_object)), None)),
-                    home_point_id=int(player.home_object),
-                    num_bullets=0,
-                    end_position=None,  # FIXME надо тоже подумать мб
-                    state="landed_home",
-                    has_cargo=False,
-                    velocity=np.array([0, 0, 0])
-                ))
+        if team.name_team == 'Bots':
+            for player in team.players:
+                if player.control_object == 'PioneerObject':
+                    bots.append(parser.Bot(
+                        id=int(player.robot), # FIXME
+                        position=np.array(
+                            next((home.current_pos for home in home_points if home.id == int(player.home_object)), None)),
+                        home_point_id=int(player.home_object),
+                        num_bullets=0,
+                        end_position=None,  # FIXME надо тоже подумать мб
+                        state="landed_home",
+                        has_cargo=False,
+                        velocity=np.array([0, 0, 0]),
+                        type=player.control_object
+                    ))
+                else:
+                    pass # Todo bots.append(eduBot)
+        else:
+            for player in team.players:
+                players.append(parser.Enemy(id=int(player.robot),
+                                            position=np.array(),
+                                            has_cargo=False,
+                                            num_bullets=0))
     controller = BotsController(bots, players, polygons)
-    while True:  # ну тут не while True, а while game_time из init_data
+    while True:
         controller.update_game_state()
         for bot in controller.bots:
             controller.update_position(bot)
-            command = controller.generate_command(bot)  # ну тут тоже чутка долепить
+            command = controller.generate_command(bot)
 
 
 if __name__ == "__main__":

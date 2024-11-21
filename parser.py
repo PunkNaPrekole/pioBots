@@ -13,28 +13,24 @@ def load_init_game_data(filepath: str) -> InitGameData:
 
     config_data = data['config']
 
-    cargo_settings = [CargoSettings(**cargo) for cargo in config_data['Game_mechanics']['cargo_settings']]
     game_description = config_data['Game_settings']['game_description']
     game_id = config_data['Game_settings']['game_id']
     time_game = config_data['Game_settings']['time_game']
 
     config_obj = Config(
-        cargo_settings=cargo_settings,
         game_description=game_description,
         game_id=game_id,
         time_game=time_game
     )
 
+    robot_manager = {k: Robot(**v) for k, v in config_data['Robot_manager'].items()}
+
     player_manager = []
     for team in config_data['Player_manager']:
         players = [Player(
-            description=player['description'],
             filter=player['filter'],
             home_object=player['home_object'],
-            method_control_obj=player['method_control_obj'],
-            name_player=player['name_player'],
-            robot=player['robot'],
-            role_player=RolePlayer(**player['role_player'])
+            robot=player['robot']
         ) for player in team['players']]
         player_manager.append(Team(
             city_team=team['city_team'],
@@ -45,21 +41,16 @@ def load_init_game_data(filepath: str) -> InitGameData:
 
     polygon_manager = [Polygon(
         id=int(k),
-        custom_settings=v.get('custom_settings', {}),
-        ind_for_led_controller=v.get('ind_for_led_controller'),
         position=v.get('position', []),
         role=v['role'],
         vis_info=VisInfo(**v['vis_info'])
     ) for k, v in config_data['Polygon_manager'].items()]
 
-    robot_manager = {k: Robot(**v) for k, v in config_data['Robot_manager'].items()}
-
     return InitGameData(
         config=config_obj,
         player_manager=player_manager,
         polygon_manager=polygon_manager,
-        robot_manager=robot_manager,
-        spare_robots=config_data['Spare_robots']
+        robot_manager=robot_manager
     )
 
 
@@ -74,7 +65,7 @@ def load_in_game_data(filepath: str) -> InGameData:
 
     players_info = []
     for team in data['players_info']:
-        players = [PlayerInfo(**player) for player in team['players']]
+        players = [PlayerInfo(**player) for player in team['players']] # FIXME added field 'control_object'
         players_info.append(TeamInfo(
             city_team=team['city_team'],
             color_team=team['color_team'],
@@ -92,10 +83,7 @@ def load_in_game_data(filepath: str) -> InGameData:
             vis_info=VisInfo(**v['vis_info'])
         ) for k, v in data['polygon_info'].items()]
 
-    server_info = ServerInfo(**data['server_info'])
-
     return InGameData(
         players_info=players_info,
         polygon_manager=polygon_manager,
-        server_info=server_info
     )
