@@ -36,7 +36,7 @@ class BotsController:
         self.min_attack_dist = 0.5
 
     def update_game_state(self):
-        self.game_state = parser.load_in_game_data("jsons/in_game.json")
+        self.game_state = parser.load_in_game_data("jsons/in_game.json") # todo надо реализовать обновление координат дронов по полученному json(у)
 
     def choose_factory(self, bot):
         best_fabric = None
@@ -88,16 +88,26 @@ class BotsController:
 
     def attack(self, bot):
         if not bot.has_cargo and self.is_bot_in_zones(bot):
-            nearest_enemy = None
             for enemy in self.players:
                 if enemy.has_cargo:
                     distance = np.linalg.norm(enemy.position - bot.position)
                     if distance <= self.min_attack_dist:
-                        nearest_enemy = enemy
-            bot.enemy = nearest_enemy
+                        bot.enemy  = enemy
+                        break
 
     def update_position(self, bot):
         if bot.state != "blocked":
+
+            def calculate_velocity():
+                direction = bot.end_position - bot.position
+                direction[2] = 0
+                distance = np.linalg.norm(direction)
+                if distance > 0.3:
+                    bot.velocity = (direction / distance) / 3  # FIXME
+                else:
+                    bot.velocity = np.array([0.0, 0.0, 0.0])
+                    bot.state = 'landing'
+
             self.avoid_collision(bot) # FIXME
             self.attack(bot) # TODO
             if bot.state == 'taking_off':
@@ -105,14 +115,7 @@ class BotsController:
 
             elif bot.state == 'flying_to_factory':
                 if bot.end_position is not None:
-                    direction = bot.end_position - bot.position # TODO 1
-                    direction[2] = 0
-                    distance = np.linalg.norm(direction)
-                    if distance > 0.3:
-                        bot.velocity = (direction / distance) / 3  # FIXME
-                    else:
-                        bot.velocity = np.array([0.0, 0.0, 0.0])
-                        bot.state = 'landing'
+                    calculate_velocity()
                 else:
                     self.choose_factory(bot)
 
@@ -128,14 +131,7 @@ class BotsController:
                     bot.end_position = bot.home_position # FIXME maybe select nearest TakeoffArea_RolePolygon
 
             elif bot.state == 'returning_home':
-                direction = bot.end_position - bot.position # TODO 2
-                direction[2] = 0
-                distance = np.linalg.norm(direction)
-                if distance > 0.3:
-                    bot.velocity = (direction / distance) / 3
-                else:
-                    bot.velocity = np.array([0.0, 0.0, 0.0])
-                    bot.state = 'landing'
+                calculate_velocity()
 
             elif bot.state == 'landed_home':
                 if not bot.has_cargo:
@@ -167,7 +163,7 @@ class BotsController:
         elif bot.state == 'taking_off':
             packet['takeoff'] = 1
 
-        if bot.enemy:  # FIXME
+        if bot.enemy:
             packet['fire_btn'] = 1
             bot.enemy = None
 
