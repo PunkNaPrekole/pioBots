@@ -3,21 +3,6 @@ from typing import List, Dict, Optional
 
 import numpy as np
 
-
-@dataclass
-class CargoSettings:
-    balls_loading: int
-    balls_unloading: float
-    color_led: List[int]
-    str_name: str
-
-
-@dataclass
-class RolePlayer:
-    custom_settings: Dict
-    name_role: str
-
-
 @dataclass
 class VisInfo:
     color: List[int]
@@ -48,44 +33,19 @@ class TeamInfo:
     players: List[PlayerInfo]
 
 
-@dataclass
-class PolygonInfo:
-    id: int
-    current_pos: List
-    data_role: Optional[Dict]
-    name_role: str
-    vis_info: VisInfo
-
-
-@dataclass
-class ServerInfo:
-    gameTime: str
-    game_description: str
-    state: int
-    state_old: int
-    version: str
-
-
-
-
 @dataclass()
 class Bot:
     id: int
     position: np.ndarray
-    home_point_id: int
+    home_point_id: str
     num_bullets: int
     end_position: Optional
     state: str
     has_cargo: bool
     velocity: np.ndarray
     type: str
-
-
-
-@dataclass
-class InGameData:
-    players_info: List[TeamInfo]
-    polygon_manager: List[PolygonInfo]
+    filter: List
+    enemy: bool
 
 
 @dataclass()
@@ -120,10 +80,11 @@ class Team:
 
 @dataclass
 class Polygon:
-    id: int
+    id: str
     position: List
     role: str
     vis_info: VisInfo
+    data_role: Dict
 
 
 @dataclass
@@ -138,6 +99,12 @@ class InitGameData:
     config: Config
     player_manager: List[Team]
     polygon_manager: List[Polygon]
-    robot_manager: Dict[str, Robot]
+    robot_manager: List[Robot]
+
+
+@dataclass
+class InGameData:
+    players_info: List[TeamInfo]
+    polygon_manager: List[Polygon]
 
 

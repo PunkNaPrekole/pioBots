@@ -1,50 +1,51 @@
-import json
 from gameObjects import *
-
+import json
 
 def load_init_game_data(filepath: str) -> InitGameData:
-    """
-    function for parsing init_game.json
-    :param filepath: path to init_game.json file
-    :return: InitGameData object
-    """
     with open(filepath, 'r') as file:
         data = json.load(file)
 
-    config_data = data['config']
-
-    game_description = config_data['Game_settings']['game_description']
-    game_id = config_data['Game_settings']['game_id']
-    time_game = config_data['Game_settings']['time_game']
+    config_data = data.get('config')
+    game_settings = config_data.get('Game_settings')
 
     config_obj = Config(
-        game_description=game_description,
-        game_id=game_id,
-        time_game=time_game
+        game_description=game_settings.get('game_description'),
+        game_id=game_settings.get('game_id'),
+        time_game=game_settings.get('time_game')
     )
+    robot_data = config_data.get('Robot_manager').items()
+    robot_manager = [
+        Robot(id=k,
+              control_obj=v.get('control_obj')) for k, v in robot_data]
 
-    robot_manager = {k: Robot(**v) for k, v in config_data['Robot_manager'].items()}
+    player_manager = [
+        Team(
+            city_team=team.get('city_team'),
+            color_team=team.get('color_team'),
+            name_team=team.get('name_team'),
+            players=[
+                Player(
+                    filter=player.get('filter'),
+                    home_object=player.get('home_object'),
+                    robot=player.get('robot'),
+                    control_object=next(robot.control_obj for robot in robot_manager if robot.id == player.get('robot'))
+                )
+                for player in team.get('players')
+            ]
+        )
+        for team in config_data.get('Player_manager')
+    ]
 
-    player_manager = []
-    for team in config_data['Player_manager']:
-        players = [Player(
-            filter=player['filter'],
-            home_object=player['home_object'],
-            robot=player['robot']
-        ) for player in team['players']]
-        player_manager.append(Team(
-            city_team=team['city_team'],
-            color_team=team['color_team'],
-            name_team=team['name_team'],
-            players=players
-        ))
-
-    polygon_manager = [Polygon(
-        id=int(k),
-        position=v.get('position', []),
-        role=v['role'],
-        vis_info=VisInfo(**v['vis_info'])
-    ) for k, v in config_data['Polygon_manager'].items()]
+    polygon_manager = [
+        Polygon(
+            id=k,
+            position=v.get('position'),
+            role=v.get('role'),
+            vis_info=VisInfo(**v.get('vis_info')),
+             data_role={}
+        )
+        for k, v in config_data.get('Polygon_manager').items()
+    ]
 
     return InitGameData(
         config=config_obj,
@@ -53,37 +54,31 @@ def load_init_game_data(filepath: str) -> InitGameData:
         robot_manager=robot_manager
     )
 
-
 def load_in_game_data(filepath: str) -> InGameData:
-    """
-    function for parsing in_game.json
-    :param filepath: path to in_game.json file
-    :return: InGameData object
-    """
     with open(filepath, 'r') as file:
         data = json.load(file)
 
-    players_info = []
-    for team in data['players_info']:
-        players = [PlayerInfo(**player) for player in team['players']] # FIXME added field 'control_object'
-        players_info.append(TeamInfo(
-            city_team=team['city_team'],
-            color_team=team['color_team'],
-            name_team=team['name_team'],
-            players=players
-        ))
+    players_info = [
+        TeamInfo(
+            city_team=team.get('city_team'),
+            color_team=team.get('color_team'),
+            name_team=team.get('name_team'),
+            players=[PlayerInfo(**player) for player in team.get('players')]
+        )
+        for team in data.get('players_info')
+    ]
 
-    polygon_manager = []
-    if 'polygon_info' in data:
-        polygon_manager = [PolygonInfo(
-            id=int(k),
-            current_pos=v['current_pos'],
+    polygon_manager = [
+        Polygon(
+            id=k,
+            position=v.get('current_pos'),
             data_role=v.get('data_role'),
-            name_role=v['name_role'],
-            vis_info=VisInfo(**v['vis_info'])
-        ) for k, v in data['polygon_info'].items()]
+            role=v.get('name_role'),
+            vis_info=VisInfo(**v.get('vis_info'))
+        ) for k, v in data.get('polygon_info').items()
+    ]
 
     return InGameData(
         players_info=players_info,
-        polygon_manager=polygon_manager,
+        polygon_manager=polygon_manager
     )
