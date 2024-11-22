@@ -25,19 +25,11 @@ class PlayerInfo:
     time_game: str # delete
 
 
-@dataclass
-class TeamInfo:
-    city_team: str
-    color_team: List[int]
-    name_team: str
-    players: List[PlayerInfo]
-
-
 @dataclass()
 class Bot:
     id: int
     position: np.ndarray
-    home_point_id: str
+    home_point: np.ndarray
     num_bullets: int
     end_position: Optional
     state: str
@@ -75,7 +67,7 @@ class Team:
     city_team: str
     color_team: List[int]
     name_team: str
-    players: List[Player]
+    players: List
 
 
 @dataclass
@@ -104,7 +96,7 @@ class InitGameData:
 
 @dataclass
 class InGameData:
-    players_info: List[TeamInfo]
+    players_info: List[Team]
     polygon_manager: List[Polygon]
 
 

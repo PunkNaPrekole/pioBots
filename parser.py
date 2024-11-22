@@ -59,7 +59,7 @@ def load_in_game_data(filepath: str) -> InGameData:
         data = json.load(file)
 
     players_info = [
-        TeamInfo(
+        Team(
             city_team=team.get('city_team'),
             color_team=team.get('color_team'),
             name_team=team.get('name_team'),

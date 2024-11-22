@@ -41,6 +41,7 @@ class BotsController:
             polygon.data_role = updated_polygon.data_role
             polygon.vis_info = updated_polygon.vis_info
 
+
     def choose_enemy(self, bot):
         min_distance = float('inf')
         for enemy in self.players:
@@ -50,6 +51,7 @@ class BotsController:
                     min_distance = distance
                     bot.end_position = enemy.position
                     bot.state = "persecution"
+
 
     def choose_action(self, bot):
         """Выбирает действие"""
@@ -82,6 +84,7 @@ class BotsController:
                 bot.enemy = True
                 break
 
+
     def avoid_collision(self, bot):
         """Избегание столкновений с другими ботами."""
         for other_bot in self.bots + self.players:
@@ -90,6 +93,7 @@ class BotsController:
                 if distance < self.min_distance:
                     repulsion = (bot.position - other_bot.position) / distance
                     bot.velocity += repulsion * 0.1
+
 
     def update_position(self, bot):
         if bot.state == 'moving':
@@ -112,21 +116,23 @@ class BotsController:
             self.avoid_collision(bot)
         elif bot.state == 'taking_off':
             if bot.has_cargo:
-                min_distance = float('inf')
-                home_point = None
-                for polygon in self.home_points:
-                    if polygon.id in bot.filter:
-                        distance = np.linalg.norm(bot.position - polygon.position)
-                        if distance < min_distance:
-                            min_distance = distance
-                            home_point = polygon
-                bot.end_position = home_point.position
+                bot.end_position = bot.home_point
+                bot.state = 'moving'
             else:
                 self.choose_action(bot)
         elif bot.state == 'landing':
             distance = np.linalg.norm(bot.position - bot.end_position)
             if distance < 0.3:
-                bot.state = 'landed'  # todo определение точки посадки: home or fabric
+                if np.array_equal(bot.end_position, bot.home_point):
+                    bot.state = 'landed_home'
+                else:
+                    bot.state = 'landed_fabric'
+        elif bot.state == 'landed_home':
+            if not bot.has_cargo:
+                bot.state = 'taking_off'
+        else:
+            if bot.has_cargo:
+                bot.state = 'taking_off'
 
     @staticmethod
     def generate_command(bot):
@@ -164,10 +170,11 @@ def main():
     for team in teams:
         if team.name_team == 'pioBots':
             for player in team.players:
+                home_point = np.array(polygon.position for polygon in polygons if polygon.id == player.home_object)
                 bots.append(parser.Bot(
                     id=int(player.robot),
-                    position=np.array(polygon.position for polygon in polygons if polygon.id == player.home_object),
-                    home_point_id=player.home_object,
+                    position=home_point,
+                    home_point=home_point,
                     velocity=np.array([0, 0, 0]),
                     has_cargo=False,
                     state="taking_off",
@@ -191,6 +198,6 @@ def main():
     while True:
         controller.update_game_state()
         for bot in controller.bots:
-            controller.update_position(bot)
             command = controller.generate_command(bot)
+            controller.update_position(bot)
             print(f"Bot {bot.id} Command: {command}")
